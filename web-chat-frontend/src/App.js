@@ -16,7 +16,7 @@ const App = () => {
     const socket = new SockJS('http://localhost:8080/ws')
 
     // CREATES STOMP CLIENT OVER SOCKET CONNECTION
-    const client = new Stomp.over(socket);
+    const client = Stomp.over(socket);
 
     // ESTABLISH CONNECTION TO SERVER
     client.connect({}, () => {
@@ -36,19 +36,19 @@ const App = () => {
   },[]);
 
   // UPDATE NICKNAME & MESSAGE STATES
-  const handleMessageChange = (e) => {
-    setMessage (e.target.value);
+  const handleMessageChange = (event) => {
+    setMessage (event.target.value);
   }
 
-  const handleNicknameChange = (e) => {
-    setNickname (e.target.value);
+  const handleNicknameChange = (event) => {
+    setNickname (event.target.value);
   }
 
   const sendMessage = () => {
     if (message.trim()) {
       const chatMessage = {
         nickname,
-        content: messages
+        content: message
       };
 
       stompClient.send('/app/chat', {}, JSON.stringify(chatMessage));
@@ -69,14 +69,14 @@ const App = () => {
       </ul>
       <div style={{display:'flex', alignItems:'center'}}>
         <div>
-          <input type='text' id='nicknameBox' name='nicknameBox' placeholder={nickname} />
+          <input type='text' id='nicknameBox' name='nicknameBox' value={nickname} onChange={handleNicknameChange} />
           <label for='nickname'>Nickname</label>
         </div>
         <div>
-          <input type='text' id='messageBox' name='messageBox' placeholder='' />
+          <input type='text' id='messageBox' name='messageBox' value={message} onChange={handleMessageChange}/>
           <label for='message'>Message</label>
         </div>
-        <button onClick={sendMessage}>Send</button>
+        <button onClick={sendMessage} disabled={!message.trim()}>Send</button>
       </div>
     </div>
   )
