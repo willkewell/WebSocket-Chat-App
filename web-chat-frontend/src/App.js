@@ -52,13 +52,14 @@ const App = () => {
       };
 
       stompClient.send('/app/chat', {}, JSON.stringify(chatMessage));
-      sendMessage('');
+      setMessage('');
     }
   }
 
   return (
     <div>
-      <ul>
+      <div style={{display:'flex', alignItems:'center'}}>
+        <ul>
         {messages.map((msg, index) => (
           <li key={index}>
             <div>{msg.nickname.charAt(0)}</div>
@@ -67,14 +68,16 @@ const App = () => {
           </li>
         ))}
       </ul>
+      </div>
+      
       <div style={{display:'flex', alignItems:'center'}}>
         <div>
-          <input type='text' id='nicknameBox' name='nicknameBox' value={nickname} onChange={handleNicknameChange} />
-          <label for='nickname'>Nickname</label>
+          <input value={nickname} onChange={handleNicknameChange} />
+          <label>Nickname</label>
         </div>
         <div>
-          <input type='text' id='messageBox' name='messageBox' value={message} onChange={handleMessageChange}/>
-          <label for='message'>Message</label>
+          <input value={message} onChange={handleMessageChange}/>
+          <label>Message</label>
         </div>
         <button onClick={sendMessage} disabled={!message.trim()}>Send</button>
       </div>
