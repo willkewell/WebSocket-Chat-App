@@ -13,7 +13,7 @@ const App = () => {
   useEffect(()=>{
 
     // CREATE NEW SOCKET (SOCKJS INSTANCE) TO ENABLE COMMUNICATION BETWEEN CLIENT/SERVER
-    const socket = new SockJS('http://localhost:8080/ws')
+    const socket = new SockJS('http://localhost:8080/ws');
 
     // CREATES STOMP CLIENT OVER SOCKET CONNECTION
     const client = Stomp.over(socket);
@@ -33,7 +33,7 @@ const App = () => {
       client.disconnect();
     };
 
-  },[]);
+  }, []);
 
   // UPDATE NICKNAME & MESSAGE STATES
   const handleMessageChange = (event) => {
@@ -48,7 +48,7 @@ const App = () => {
     if (message.trim()) {
       const chatMessage = {
         nickname,
-        content: message
+        content: message,
       };
 
       stompClient.send('/app/chat', {}, JSON.stringify(chatMessage));
