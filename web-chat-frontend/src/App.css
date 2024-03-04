@@ -1,38 +1,120 @@
-.App {
-  text-align: center;
+.app__container {
+
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.chat__banner {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  align-items: center;
+  background: var(--color-bg-variant);
+  width: 100%;
+  height: 4rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.chat__area__wrapper {
+  display: flex;
+  flex-direction: column-reverse;
+  overflow: auto;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.chat__area {
   display: flex;
   flex-direction: column;
+  height: 75vh;
+  width: 100%;
+  background: var(--color-primary);
+  border: 1px solid black;
+  padding: 1rem;
+  overflow: scroll;
+}
+
+.chat__message {
+  display: flex;
+  flex-direction: row;
   align-items: center;
+  /* width: 75%; */
+  height: fit-content;
+  /* max-width: 75%; */
+  /* min-width: 75%; */
+  background: var(--color-primary-variant);
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  gap: 0.5rem;
+  margin: 0.5rem;
+  /* overflow: hidden; */
+  /* word-break: break-word; */
+}
+
+.chat__message__user {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+.chat__message__user small {
+  /* margin-right: 2rem; */
+}
+
+.chat__message__other {
+  margin-right: auto;
+  margin-left: 0;
+}
+
+.chat__message-avatar {
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  border: 1px solid black;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
 }
 
-.App-link {
-  color: #61dafb;
+.chat__message-content {
+  word-break: break-word;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.chat__input {
+  display: flex;
+  align-items: start;
+  margin-top: 0.25rem;
+  gap: 0.25rem;
+}
+
+.chat__input-nickname {
+  height: 4rem;
+  width: 8rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat__input-nickname input {
+  height: 100%;
+  border: 1px solid black;
+}
+
+.chat__input-message {
+  height: 4rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat__input textarea {
+  height: 100%;
+  border: 1px solid black;
+  resize: none;
+}
+
+.chat__input label {
+}
+
+.chat__input button {
+  color: black;
+  background: var(--color-primary-variant);
+  border: 1px solid black;
+  border-radius: 10%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
 }

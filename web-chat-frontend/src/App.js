@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Stomp from 'stompjs'
 import SockJS from 'sockjs-client'
+import './App.css'
 
 const App = () => {
   // STORE DATA WITH USESTATE
@@ -49,6 +50,7 @@ const App = () => {
       const chatMessage = {
         nickname,
         content: message,
+        timestamp: new Date(),
       };
 
       stompClient.send('/app/chat', {}, JSON.stringify(chatMessage));
@@ -58,30 +60,47 @@ const App = () => {
 
   return (
     <div>
-      <div style={{display:'flex', alignItems:'center'}}>
-        <ul>
-        {messages.map((msg, index) => (
-          <li key={index}>
-            <div>{msg.nickname.charAt(0)}</div>
-            <h4>{msg.nickname}</h4>
-            <small>{msg.content}</small>
-          </li>
-        ))}
-      </ul>
+      <div className='chat__banner' >
+        <h1>WEBSOCKET CHAT APP</h1>
+        <h3>Get Chatting!</h3>
+      </div>
+      <div className='container app__container'>
+      <div>
+        <ul className='chat__area'>
+          {messages.map((msg, index) => (
+            (nickname == msg.nickname) ? (
+              <li className='chat__message chat__message__user' key={index}>
+                <div className='chat__message-avatar'>{msg.nickname.charAt(0).toUpperCase()}</div>
+                <h4 className='chat__message-nickname'>{msg.nickname}</h4>
+                <p className='chat__message-content'>{msg.content}</p>
+                <small className='chat__message-timestamp'>{msg.timestamp}</small>
+              </li>
+            ) : (
+              <li className='chat__message chat__message__other' key={index}>
+                <div className='chat__message-avatar'>{msg.nickname.charAt(0).toUpperCase()}</div>
+                <h4 className='chat__message-nickname'>{msg.nickname}</h4>
+                <p className='chat__message-content'>{msg.content}</p>
+                <small className='chat__message-timestamp'>{msg.timestamp}</small>
+              </li>
+            ) 
+          ))}
+        </ul>
       </div>
       
-      <div style={{display:'flex', alignItems:'center'}}>
-        <div>
+      <div className='chat__input'>
+        <div className='chat__input-nickname'>
           <input value={nickname} onChange={handleNicknameChange} />
           <label>Nickname</label>
         </div>
-        <div>
-          <input value={message} onChange={handleMessageChange}/>
+        <div className='chat__input-message'>
+          <textarea value={message} onChange={handleMessageChange}/>
           <label>Message</label>
         </div>
         <button onClick={sendMessage} disabled={!message.trim()}>Send</button>
       </div>
     </div>
+    </div>
+    
   )
 }
 
